@@ -6,18 +6,18 @@ import ultra_img from "../images/sku_416860_1.jpg"
 import joy_img from "../images/rg-joystick-a.jpg"
 
 
-export class Ultrasonic extends Component{
-    render(){
+export class Ultrasonic extends Component {
+    render() {
         let d = this.props.device;
-        let color="primary";
-        if(d.value<50)
+        let color = "primary";
+        if (d.value < 50)
             color = "danger";
-        else if(d.value<150)
+        else if (d.value < 150)
             color = "warning";
         // if(d.last_seen)
-        return(
+        return (
             <Card>
-                <CardImg top className={d.state?"":"dead"} width="100%" src={ultra_img}/>
+                <CardImg top className={d.state ? "" : "dead"} width="100%" src={ultra_img}/>
                 <CardBody>
                     <CardTitle>Ultrasonic Sensor</CardTitle>
                     <CardText>Measures distance to objects using ultrasonic sound waves</CardText>
@@ -29,34 +29,35 @@ export class Ultrasonic extends Component{
 }
 
 
-export class Temperature extends Component{
+export class Temperature extends Component {
     constructor(props) {
         super(props);
         this.toggle = this.toggle.bind(this);
-        this.state = { collapse: false };
+        this.state = {collapse: false};
     }
 
     toggle() {
-        this.setState({ collapse: !this.state.collapse });
+        this.setState({collapse: !this.state.collapse});
     }
 
-    render(){
+    render() {
         let d = this.props.device;
-        let color="success";
-        if(d.value>40)
+        let color = "success";
+        if (d.value > 40)
             color = "danger";
-        else if(d.value>30)
+        else if (d.value > 30)
             color = "warning";
-        return(
+        return (
             <Card>
-                <CardImg top className={d.state?"":"dead"} width="100%" src={dht_img}/>
+                <CardImg top className={d.state ? "" : "dead"} width="100%" src={dht_img}/>
                 <CardBody>
                     <CardTitle>Temperature Sensor</CardTitle>
-                    <CardText>Measures the temperature of the surrounding atmosphere. <br/> Temperature : {d.value} <br/> Humidity : {d.data} </CardText>
+                    <CardText>Measures the temperature of the surrounding atmosphere. <br/> Temperature : {d.value}
+                        <br/> Humidity : {d.data} </CardText>
                     <Progress animated={d.state} color={color} value={d.value * 2}/>
-                    <Button color="primary" onClick={this.toggle} style={{ marginTop: '1rem' }}>Details</Button>
+                    <Button color="primary" onClick={this.toggle} style={{marginTop: '1rem'}}>Details</Button>
                     <Collapse isOpen={this.state.collapse}>
-                        <CardText style={{ marginTop: '1rem' }}>Temperature Range : 0 - 50℃ <br/>Humidity Range : 20-95%RH</CardText>
+                        <CardText style={{marginTop: '1rem'}}>Temperature Range : 0 - 50℃ <br/>Humidity Range : 20-95%RH</CardText>
                     </Collapse>
 
                 </CardBody>
@@ -66,13 +67,13 @@ export class Temperature extends Component{
 }
 
 
-export class Joystick extends Component{
+export class Joystick extends Component {
 
-    render(){
+    render() {
         let d = this.props.device;
-        return(
+        return (
             <Card>
-                <CardImg top className={d.state?"":"dead"} width="100%" src={joy_img}/>
+                <CardImg top className={d.state ? "" : "dead"} width="100%" src={joy_img}/>
                 <CardBody>
                     <CardTitle>Joystick</CardTitle>
                     <CardText>Used to control the bot.</CardText>

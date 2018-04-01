@@ -1,18 +1,8 @@
-import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {devices} from "../actions";
-import {
-    Button, Input, Container, Col, Row, Collapse,
-    Navbar,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    NavItem,
-    NavLink,
-    Progress, InputGroupAddon, InputGroup, CardDeck, CardColumns
-} from 'reactstrap';
-import {Joystick, Ultrasonic, Temperature} from "./Sensors";
+import {CardColumns, Collapse, Container, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from 'reactstrap';
+import {Joystick, Temperature, Ultrasonic} from "./Sensors";
 
 
 class iBot extends Component {
@@ -106,7 +96,7 @@ class iBot extends Component {
 
 
                     {/*</form>*/}
-                    <h3>Connected Sensors</h3>
+                    <h1>Connected Sensors</h1>
                     <CardColumns>
                         {this.props.devices.map((device, id) => (this.createSensor(device,id)))}
                         {this.props.devices.map((device, id) => (this.createSensor(device,id)))}

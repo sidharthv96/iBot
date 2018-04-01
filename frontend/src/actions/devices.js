@@ -3,7 +3,7 @@ export const addDevice = text => {
         type: 'ADD_DEVICE',
         text
     }
-}
+};
 
 export const updateDevice = (id, text) => {
     return {
@@ -11,14 +11,14 @@ export const updateDevice = (id, text) => {
         id,
         text
     }
-}
+};
 
 export const deleteDevice = id => {
     return {
         type: 'DELETE_DEVICE',
         id
     }
-}
+};
 
 export const fetchSensors = () => {
     return dispatch => {
@@ -32,4 +32,18 @@ export const fetchSensors = () => {
                 })
             })
     }
-}
+};
+
+export const fetchActuators = () => {
+    return dispatch => {
+        let headers = {"Content-Type": "application/json"};
+        return fetch("/api/actuators/", {headers,})
+            .then(res => res.json())
+            .then(actuators => {
+                return dispatch({
+                    type: 'FETCH_ACTUATORS',
+                    actuators
+                })
+            })
+    }
+};
