@@ -7,6 +7,17 @@ import joy_img from "../images/rg-joystick-a.jpg"
 
 
 export class Ultrasonic extends Component{
+
+    constructor(props) {
+        super(props);
+        this.toggle = this.toggle.bind(this);
+        this.state = { collapse: false };
+    }
+
+    toggle() {
+        this.setState({ collapse: !this.state.collapse });
+    }
+    
     render(){
         let d = this.props.device;
         let color="success";
