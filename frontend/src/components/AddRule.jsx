@@ -5,7 +5,7 @@ import {CardColumns, Collapse, Container, Nav, Navbar, NavbarBrand, NavbarToggle
 import {Joystick, Temperature, Ultrasonic} from "./Sensors";
 
 
-class iBot extends Component {
+class AddRule extends Component {
 
 
     resetForm = () => {
@@ -39,7 +39,7 @@ class iBot extends Component {
 
     componentDidMount() {
         // this.props.fetchSensors();
-        setInterval(this.props.fetchSensors.bind(this), 500);
+        setInterval(this.props.fetchSensors.bind(this), 1000);
         // setInterval(this.props.fetchSensors(),1000);
     }
 
@@ -96,10 +96,10 @@ class iBot extends Component {
 
 
                     {/*</form>*/}
-                    <h1>Connected Sensors</h1>
+                    <h1>Add Rule</h1>
                     <CardColumns>
                         {this.props.devices.map((device, id) => (this.createSensor(device,id)))}
-                        {/*{this.props.devices.map((device, id) => (this.createSensor(device,id)))}*/}
+                        {this.props.devices.map((device, id) => (this.createSensor(device,id)))}
                     </CardColumns>
                     {/*<table>*/}
                         {/*<tbody>*/}
@@ -138,5 +138,5 @@ const mapDispatchToProps = dispatch => {
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(iBot);
+export default connect(mapStateToProps, mapDispatchToProps)(AddRule);
 

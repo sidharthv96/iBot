@@ -9,11 +9,13 @@ import joy_img from "../images/rg-joystick-a.jpg"
 export class Ultrasonic extends Component{
     render(){
         let d = this.props.device;
-        let color="primary";
+        let color="success";
         if(d.value<50)
             color = "danger";
         else if(d.value<150)
             color = "warning";
+        else if(d.value<300)
+            color = "primary";
         // if(d.last_seen)
         return(
             <Card>
@@ -21,7 +23,8 @@ export class Ultrasonic extends Component{
                 <CardBody>
                     <CardTitle>Ultrasonic Sensor</CardTitle>
                     <CardText>Measures distance to objects using ultrasonic sound waves</CardText>
-                    <Progress animated={d.state} color={color} value={d.value / 3}/>
+                    <CardText>Distance : {d.value}CM</CardText>
+                    <Progress animated={d.state} color={color} value={d.value / 4}/>
                 </CardBody>
             </Card>
         )

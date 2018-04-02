@@ -13,8 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
-from django.contrib import admin
+from django.conf.urls import url
 
 from brain.views import *
 from device.views import *
@@ -28,7 +27,7 @@ urlpatterns = [
     url(r'^joystick/', joystick),
     url(r'^options/json', get_json_options),
     url(r'^options/', get_options),
-    url(r'^rule/add/', add_rule),
+    # url(r'^rule/add/', add_rule),
     url(r'^rule/view/', view_rules),
 
 ]

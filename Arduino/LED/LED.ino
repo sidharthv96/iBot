@@ -3,12 +3,11 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 #include <ArduinoJson.h>
+#include <ESP8266WiFiMulti.h> // Include the Wi-Fi-Multi library
+ESP8266WiFiMulti wifiMulti;
 
 String host;
 String code;
-
-const char *ssid = "Hacker";
-const char *password = "virusalert";
 
 byte ledState = LOW;
 byte blinkState = LOW;
@@ -18,25 +17,7 @@ void setup()
 {
 
     Serial.begin(115200);
-    Serial.println();
-    Serial.println();
-    Serial.print("Connecting to ");
-    Serial.println(ssid);
-
-    WiFi.begin(ssid, password);
-
-    while (WiFi.status() != WL_CONNECTED)
-    {
-        delay(500);
-        Serial.print(".");
-    }
-
-    Serial.println("");
-    Serial.println("WiFi connected");
-    Serial.println("IP address: ");
-    Serial.println(WiFi.localIP());
-    code = String(WiFi.macAddress());
-    code.replace(":", "");
+    connectWifi();
 
     HTTPClient http;
     Serial.print("[HTTP] begin...\n");
@@ -108,4 +89,29 @@ void loop()
         digitalWrite(LED_PIN, ledState);
     }
     delay(400);
+}
+
+
+void connectWifi()
+{
+    boolean state = true;
+    wifiMulti.addAP("Redmi 3S", "kannan123"); // add Wi-Fi networks you want to connect to
+    wifiMulti.addAP("Shield", "12347777");
+    wifiMulti.addAP("Hacker", "virusalert");
+    wifiMulti.addAP("iBot", "iRobot969");
+
+    Serial.print("Connecting.");
+
+    while (wifiMulti.run() != WL_CONNECTED)
+    { // Wait for the Wi-Fi to connect: scan for Wi-Fi networks, and connect to the strongest of the networks above
+        delay(500);
+        Serial.print('.');
+    }
+
+    Serial.print("Connected to ");
+    Serial.println(WiFi.SSID());
+    Serial.print("IP address: ");
+    Serial.println(WiFi.localIP());     
+    code = String(WiFi.macAddress());
+    code.replace(":", "");
 }

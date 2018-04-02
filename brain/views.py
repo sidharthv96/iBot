@@ -3,11 +3,10 @@ from __future__ import unicode_literals
 
 import json
 import socket
+from datetime import timedelta
 
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
-from django.utils import timezone
-from datetime import timedelta
 
 from brain.models import *
 from device.models import *
@@ -62,6 +61,8 @@ def signal(request):
     sensor = Sensor.objects.get(code=request.GET.get("code"))
     sensor.data = request.GET.get("data")
     sensor.value = float(request.GET.get("value") or 0)
+    sensor.last_seen = timezone.now()
+    sensor.state = True
     sensor.save()
     events = Event.objects.filter(sensor=sensor)
     for event in events:

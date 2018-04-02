@@ -30,6 +30,12 @@ class Sensor(Device):
     value = models.FloatField(default=0, null=True)
     events = models.ManyToManyField(Parameter)
 
+    def __unicode__(self):
+        return self.name + " " + self.code
+
 
 class Actuator(Device):
     actions = models.ManyToManyField(Parameter)
+
+    def __unicode__(self):
+        return self.name + " " + self.code

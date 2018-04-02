@@ -3,15 +3,15 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 #include <ArduinoJson.h>
+#include <ESP8266WiFiMulti.h> // Include the Wi-Fi-Multi library
+ESP8266WiFiMulti wifiMulti;
 
 String host;
 String code;
 
-const char *ssid = "Shield";
-const char *password = "12347777";
 
-const int trigPin = 9;
-const int echoPin = 10;
+const int trigPin = D1;
+const int echoPin = D2;
 // defines variables
 long duration;
 int distance;
@@ -20,30 +20,10 @@ void setup()
 {
 
   Serial.begin(115200);
-  Serial.println();
-  Serial.println();
-  Serial.print("Connecting to ");
-  Serial.println(ssid);
-
-  WiFi.begin(ssid, password);
-
-  while (WiFi.status() != WL_CONNECTED)
-  {
-    delay(500);
-    Serial.print(".");
-  }
-
-  Serial.println("");
-  Serial.println("WiFi connected");
-  Serial.println("IP address: ");
-  Serial.println(WiFi.localIP());
-  code = String(WiFi.macAddress());
-  code.replace(":", "");
-
+  connectWifi();
   HTTPClient http;
-  Serial.print("[HTTP] begin...\n");
   IPAddress ipa = WiFi.localIP();
-  int x = 13;
+  int x = 1;
   String ip = String(ipa[0]) + "." + String(ipa[1]) + "." + String(ipa[2]) + ".";
   while (1)
   {
@@ -89,9 +69,34 @@ void loop()
   // Reads the echoPin, returns the sound wave travel time in microseconds
   duration = pulseIn(echoPin, HIGH);
   // Calculating the distance
-  distance= duration*0.034/2;  
-  http.begin(host + "/signal/?code=" + code + "&value=" + str(distance));
+  distance= duration*0.017;  
+  http.begin(host + "/signal/?code=" + code + "&value=" + String(distance));
   int httpCode = http.GET();  
   http.end();
   delay(200);
+}
+
+
+void connectWifi()
+{
+    boolean state = true;
+    wifiMulti.addAP("Redmi 3S", "kannan123"); // add Wi-Fi networks you want to connect to
+    wifiMulti.addAP("Shield", "12347777");
+    wifiMulti.addAP("Hacker", "virusalert");
+    wifiMulti.addAP("iBot", "iRobot969");
+
+    Serial.print("Connecting.");
+
+    while (wifiMulti.run() != WL_CONNECTED)
+    { // Wait for the Wi-Fi to connect: scan for Wi-Fi networks, and connect to the strongest of the networks above
+        delay(500);
+        Serial.print('.');
+    }
+
+    Serial.print("Connected to ");
+    Serial.println(WiFi.SSID());
+    Serial.print("IP address: ");
+    Serial.println(WiFi.localIP());     
+    code = String(WiFi.macAddress());
+    code.replace(":", "");
 }
