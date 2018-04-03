@@ -39,7 +39,7 @@ class iBot extends Component {
 
     componentDidMount() {
         // this.props.fetchSensors();
-        setInterval(this.props.fetchSensors.bind(this), 500);
+        setInterval(this.props.fetchSensors.bind(this), 200);
         // setInterval(this.props.fetchSensors(),1000);
     }
 

@@ -23,7 +23,7 @@ void setup()
   connectWifi();
   HTTPClient http;
   IPAddress ipa = WiFi.localIP();
-  int x = 179;
+  int x = 13;
   String ip = String(ipa[0]) + "." + String(ipa[1]) + "." + String(ipa[2]) + ".";
   while (1)
   {

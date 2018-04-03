@@ -11,18 +11,27 @@ export class Ultrasonic extends Component{
     constructor(props) {
         super(props);
         this.toggle = this.toggle.bind(this);
-        this.state = { collapse: false };
+        this.state = {
+            collapse: false,
+            value : 0
+        };
     }
 
     toggle() {
         this.setState({ collapse: !this.state.collapse });
     }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.device.value<400){
+            this.setState({value: nextProps.device.value});
+            // this.setState({value: (nextProps.device.value+this.state.value)/2});
+        }
+    }
+
     
     render(){
         let color="success";
-        if(this.props.device.value<400){
-            this.setState({value: this.props.device.value});
-        }
+
         if(this.state.value<50)
             color = "danger";
         else if(this.state.value<150)
