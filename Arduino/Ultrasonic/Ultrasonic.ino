@@ -23,12 +23,12 @@ void setup()
   connectWifi();
   HTTPClient http;
   IPAddress ipa = WiFi.localIP();
-  int x = 1;
+  int x = 179;
   String ip = String(ipa[0]) + "." + String(ipa[1]) + "." + String(ipa[2]) + ".";
   while (1)
   {
     host = ip + String(x++);
-    http.begin("http://" + host + ":8000/test/"); //HTTP
+    http.begin("http://" + host + ":80/test/"); //HTTP
     Serial.print("[HTTP] GET..." + host + "\n");
     int httpCode = http.GET();
     if (httpCode > 0)
@@ -38,7 +38,7 @@ void setup()
       {
         String payload = http.getString();
         Serial.println(payload);
-        host = "http://" + host + ":8000";
+        host = "http://" + host + ":80";
         http.end();
         break;
       }

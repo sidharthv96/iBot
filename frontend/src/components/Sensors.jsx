@@ -19,23 +19,25 @@ export class Ultrasonic extends Component{
     }
     
     render(){
-        let d = this.props.device;
         let color="success";
-        if(d.value<50)
+        if(this.props.device.value<400){
+            this.setState({value: this.props.device.value});
+        }
+        if(this.state.value<50)
             color = "danger";
-        else if(d.value<150)
+        else if(this.state.value<150)
             color = "warning";
-        else if(d.value<300)
+        else if(this.state.value<300)
             color = "primary";
         // if(d.last_seen)
         return(
             <Card>
-                <CardImg top className={d.state?"":"dead"} width="100%" src={ultra_img}/>
+                <CardImg top className={this.props.device.state?"":"dead"} width="100%" src={ultra_img}/>
                 <CardBody>
                     <CardTitle>Ultrasonic Sensor</CardTitle>
                     <CardText>Measures distance to objects using ultrasonic sound waves</CardText>
-                    <CardText>Distance : {d.value}CM</CardText>
-                    <Progress animated={d.state} color={color} value={d.value / 4}/>
+                    <CardText>Distance : {this.state.value}CM</CardText>
+                    <Progress animated={this.props.device.state} color={color} value={this.state.value / 4}/>
                 </CardBody>
             </Card>
         )
