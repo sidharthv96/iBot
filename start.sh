@@ -1,7 +1,7 @@
 #!/bin/bash
 git reset --hard origin/master
-git pull | grep 'up-to-date' &> /dev/null
-if [ $? != 0 ]; then
+git pull | grep 'frontend' &> /dev/null
+if [ $? == 0 ]; then
    cd frontend
    npm run build
    cd ..
