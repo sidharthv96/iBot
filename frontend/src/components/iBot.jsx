@@ -58,7 +58,8 @@ class iBot extends Component {
                 return <Ultrasonic device={sensor}/>;
             case 'temperature':
                 return <Temperature device={sensor}/>;
-
+            default:
+                return;
         }
 
     }
@@ -84,15 +85,15 @@ class iBot extends Component {
 
                     {/*<h3>Add new device</h3>*/}
                     {/*<form onSubmit={this.submitDevice}>*/}
-                        {/*<InputGroup>*/}
-                            {/*<Input*/}
-                                {/*value={this.state.text}*/}
-                                {/*placeholder="Enter device here..."*/}
-                                {/*onChange={(e) => this.setState({text: e.target.value})}*/}
-                                {/*required />*/}
-                            {/*<InputGroupAddon addonType="append"><Button type="submit" color="primary">Save Device</Button></InputGroupAddon>*/}
+                    {/*<InputGroup>*/}
+                    {/*<Input*/}
+                    {/*value={this.state.text}*/}
+                    {/*placeholder="Enter device here..."*/}
+                    {/*onChange={(e) => this.setState({text: e.target.value})}*/}
+                    {/*required />*/}
+                    {/*<InputGroupAddon addonType="append"><Button type="submit" color="primary">Save Device</Button></InputGroupAddon>*/}
 
-                        {/*</InputGroup>*/}
+                    {/*</InputGroup>*/}
 
 
                     {/*</form>*/}
@@ -102,8 +103,8 @@ class iBot extends Component {
                         {/*{this.props.devices.map((device, id) => (this.createSensor(device,id)))}*/}
                     </CardColumns>
                     {/*<table>*/}
-                        {/*<tbody>*/}
-                        {/*</tbody>*/}
+                    {/*<tbody>*/}
+                    {/*</tbody>*/}
                     {/*</table>*/}
                     {/*<Button onClick={this.resetForm}>Reset</Button>*/}
 

@@ -58,6 +58,8 @@ class AddRule extends Component {
                 return <Ultrasonic device={sensor}/>;
             case 'temperature':
                 return <Temperature device={sensor}/>;
+            default:
+                return;
 
         }
 
