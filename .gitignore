@@ -1,0 +1,4 @@
+.idea
+webpack-stats.prod.json
+node_modules
+assets
