@@ -1,9 +1,13 @@
 #!/bin/bash
 git reset --hard origin/master
 git pull | grep 'up-to-date' &> /dev/null
-if [ $? == 0 ]; then
+if [ $? != 0 ]; then
    cd frontend
-    npm run build &
-    cd ..
+   npm run build
+   cd ..
 fi
-sudo /home/pi/.local/share/virtualenvs/iBot-yjzPlzR6/bin/python manage.py runserver 0.0.0.0:80 --settings=iBot.production_settings &
+ps -a | grep 'python' &> /dev/null
+if [ $? != 0 ]; then
+    sudo /home/pi/.local/share/virtualenvs/iBot-yjzPlzR6/bin/python manage.py runserver 0.0.0.0:80 --settings=iBot.production_settings
+fi
+
