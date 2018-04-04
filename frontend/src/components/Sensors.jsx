@@ -4,7 +4,7 @@ import {Button, Card, CardBody, CardImg, CardLink, CardText, CardTitle, Collapse
 import dht_img from "../images/DHT11-pin.jpg";
 import ultra_img from "../images/sku_416860_1.jpg"
 import joy_img from "../images/rg-joystick-a.jpg"
-
+import clap_img from "../images/sound.jpg"
 
 export class Ultrasonic extends Component{
 
