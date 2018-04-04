@@ -2,3 +2,4 @@
 webpack-stats.prod.json
 node_modules
 assets
+__pycache__
