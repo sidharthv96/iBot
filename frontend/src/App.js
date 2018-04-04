@@ -12,7 +12,6 @@ import iBot from "./components/iBot";
 import NotFound from "./components/NotFound";
 
 import './App.css';
-import AddRule from "./components/AddRule";
 
 let store = createStore(iBotApp, applyMiddleware(thunk));
 
@@ -24,7 +23,7 @@ class App extends Component {
                 <BrowserRouter>
                     <Switch>
                         <Route exact path="/" component={iBot} />
-                        <Route exact path="/rule/add" component={AddRule} />
+                        {/*<Route exact path="/rule/add" component={AddRule} />*/}
                         <Route component={NotFound} />
                     </Switch>
                 </BrowserRouter>

@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^joystick/', joystick),
     url(r'^options/json', get_json_options),
     url(r'^options/', get_options),
-    # url(r'^rule/add/', add_rule),
+    url(r'^rule/add/', add_rule),
     url(r'^rule/view/', view_rules),
 
 ]
