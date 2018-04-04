@@ -87,7 +87,7 @@ if (!MDNS.begin(hostString))
         }
     } while (host == "");
     Serial.println(host);
-  String PostData = "{\"mode\":\"actuator\",\"version\":\"1\",\"code\":\"" + code + "\",\"type\":\"Motor\",\"actions\":{\"forward\":\"actuator.data='forward'\",\"backward\":\"actuator.data='backward'\",\"left\":\"actuator.data='left'\",\"right\":\"actuator.data='right'\",\"stop\":\"actuator.data='stop'\"}}";
+  String PostData = "{\"mode\":\"actuator\",\"version\":\"2\",\"code\":\"" + code + "\",\"type\":\"Motor\",\"actions\":{\"forward\":\"actuator.data='forward'\",\"backward\":\"actuator.data='backward'\",\"left\":\"actuator.data='left'\",\"right\":\"actuator.data='right'\",\"stop\":\"actuator.data='stop'\",\"joystick\":\"actuator.data=sensor.data\"}}";
   http.begin(host + "/device/register/");
   http.addHeader("Content-Type", "application/json");
   int httpCode = http.POST(PostData);
@@ -118,32 +118,32 @@ void loop()
       String payload = http.getString();
       Serial.println("." + payload + ".");
       if (payload == "forward")
-      {
+      {        
         digitalWrite(X1, HIGH);
         digitalWrite(X2, LOW);
-        digitalWrite(Y1, LOW);
-        digitalWrite(Y2, HIGH);
+        digitalWrite(Y1, HIGH);
+        digitalWrite(Y2, LOW);
+      }
+      else if (payload == "right")
+      {
+        digitalWrite(X1, LOW);
+        digitalWrite(X2, HIGH);
+        digitalWrite(Y1, HIGH);
+        digitalWrite(Y2, LOW);
       }
       else if (payload == "backward")
       {
         digitalWrite(X1, LOW);
         digitalWrite(X2, HIGH);
-        digitalWrite(Y1, HIGH);
-        digitalWrite(Y2, LOW);
-      }
-      else if (payload == "left")
-      {
-        digitalWrite(X1, LOW);
-        digitalWrite(X2, HIGH);
         digitalWrite(Y1, LOW);
         digitalWrite(Y2, HIGH);
       }
-      else if (payload == "right")
+      else if (payload == "left")
       {
         digitalWrite(X1, HIGH);
         digitalWrite(X2, LOW);
-        digitalWrite(Y1, HIGH);
-        digitalWrite(Y2, LOW);
+        digitalWrite(Y1, LOW);
+        digitalWrite(Y2, HIGH);
       }
       else if (payload == "stop")
       {
@@ -160,7 +160,7 @@ void loop()
     Serial.println(httpCode);
   }
   http.end();
-  delay(100);
+  delay(200);
 }
 
 

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {sensors} from "../actions";
 import {CardColumns, Collapse, Container, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from 'reactstrap';
-import {Joystick, Temperature, Ultrasonic} from "./Sensors";
+import {Clap, Joystick, Temperature, Ultrasonic} from "./Sensors";
 import {Buzzer, Led, Robot} from "./Actuators";
 
 
@@ -60,6 +60,8 @@ class iBot extends Component {
                 return <Ultrasonic device={sensor}/>;
             case 'temperature':
                 return <Temperature device={sensor}/>;
+             case 'clap':
+                return <Clap device={sensor}/>;
             default:
                 return;
         }

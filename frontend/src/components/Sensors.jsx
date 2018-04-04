@@ -108,3 +108,21 @@ export class Joystick extends Component{
     }
 }
 
+
+export class Clap extends Component{
+
+    render(){
+        let d = this.props.device;
+        return(
+            <Card>
+                <CardImg top className={d.state?"":"dead"} width="100%" src={clap_img}/>
+                <CardBody>
+                    <CardTitle>Clap Sensor</CardTitle>
+                    <CardText>Used to detect Claps.</CardText>
+                    <Progress animated={d.state} color='danger' value={d.value * 100}/>
+                </CardBody>
+            </Card>
+        )
+    }
+}
+
