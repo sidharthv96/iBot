@@ -1,4 +1,5 @@
 #!/bin/bash
+cd "$(dirname "$0")"
 git reset --hard origin/master
 git pull | grep 'frontend' &> /dev/null
 if [ $? == 0 ]; then
