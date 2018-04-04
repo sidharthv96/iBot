@@ -1,27 +1,23 @@
 import React, {Component} from 'react';
-import {Button, Card, CardBody, CardImg, CardLink, CardText, CardTitle, Collapse, Progress} from "reactstrap";
+import {Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle, Progress} from "reactstrap";
 
-import dht_img from "../images/DHT11-pin.jpg";
-import ultra_img from "../images/sku_416860_1.jpg"
-import joy_img from "../images/rg-joystick-a.jpg"
+import buzzer_img from "../images/piezo-buzzer.jpg";
+import led_img from "../images/BbT4n.png"
+import robot_img from "../images/robot.jpg"
 
 
-export class Ultrasonic extends Component {
+export class Led extends Component {
     render() {
         let d = this.props.device;
-        let color = "primary";
-        if (d.value < 50)
-            color = "danger";
-        else if (d.value < 150)
-            color = "warning";
+
         // if(d.last_seen)
         return (
             <Card>
-                <CardImg top className={d.state ? "" : "dead"} width="100%" src={ultra_img}/>
+                <CardImg top className={d.state ? "" : "dead"} width="100%" src={led_img}/>
                 <CardBody>
-                    <CardTitle>Ultrasonic Sensor</CardTitle>
-                    <CardText>Measures distance to objects using ultrasonic sound waves</CardText>
-                    <Progress animated={d.state} color={color} value={d.value / 3}/>
+                    <CardTitle>Light Emitting Diode</CardTitle>
+                    <CardText>Indicates different states using light.</CardText>
+                    <Progress animated={d.state} color="danger" value={d.data==="1"?100:d.data==="blink"?50:0}/>
                 </CardBody>
             </Card>
         )
@@ -29,7 +25,7 @@ export class Ultrasonic extends Component {
 }
 
 
-export class Temperature extends Component {
+export class Robot extends Component {
     constructor(props) {
         super(props);
         this.toggle = this.toggle.bind(this);
@@ -42,24 +38,17 @@ export class Temperature extends Component {
 
     render() {
         let d = this.props.device;
-        let color = "success";
-        if (d.value > 40)
-            color = "danger";
-        else if (d.value > 30)
-            color = "warning";
         return (
             <Card>
-                <CardImg top className={d.state ? "" : "dead"} width="100%" src={dht_img}/>
+                <CardImg top className={d.state ? "" : "dead"} width="100%" src={robot_img}/>
                 <CardBody>
-                    <CardTitle>Temperature Sensor</CardTitle>
-                    <CardText>Measures the temperature of the surrounding atmosphere. <br/> Temperature : {d.value}
-                        <br/> Humidity : {d.data} </CardText>
-                    <Progress animated={d.state} color={color} value={d.value * 2}/>
-                    <Button color="primary" onClick={this.toggle} style={{marginTop: '1rem'}}>Details</Button>
-                    <Collapse isOpen={this.state.collapse}>
-                        <CardText style={{marginTop: '1rem'}}>Temperature Range : 0 - 50℃ <br/>Humidity Range : 20-95%RH</CardText>
-                    </Collapse>
-
+                    <CardTitle>iBot</CardTitle>
+                    <CardText>Uses DC motors to drive in all directions.</CardText>
+                    <CardSubtitle>State : {d.data}</CardSubtitle>
+                    {/*<Button color="primary" onClick={this.toggle} style={{marginTop: '1rem'}}>Details</Button>*/}
+                    {/*<Collapse isOpen={this.state.collapse}>*/}
+                        {/*<CardText style={{marginTop: '1rem'}}>Temperature Range : 0 - 50℃ <br/>Humidity Range : 20-95%RH</CardText>*/}
+                    {/*</Collapse>*/}
                 </CardBody>
             </Card>
         )
@@ -67,17 +56,17 @@ export class Temperature extends Component {
 }
 
 
-export class Joystick extends Component {
-
+export class Buzzer extends Component {
     render() {
         let d = this.props.device;
         return (
             <Card>
-                <CardImg top className={d.state ? "" : "dead"} width="100%" src={joy_img}/>
+                <CardImg top className={d.state ? "" : "dead"} width="100%" src={buzzer_img}/>
                 <CardBody>
-                    <CardTitle>Joystick</CardTitle>
-                    <CardText>Used to control the bot.</CardText>
-                    <CardLink href="/joystick/" target="_blank">Open Joystick</CardLink>
+                    <CardTitle>Piezo Buzzer</CardTitle>
+                    <CardText>Used to emit sound.</CardText>
+                    <Progress animated={d.state} color="success" value={d.data==="on"?100:d.data==="blink"?50:0}/>
+                    {/*<CardLink href="/joystick/" target="_blank">Open Joystick</CardLink>*/}
                 </CardBody>
             </Card>
         )

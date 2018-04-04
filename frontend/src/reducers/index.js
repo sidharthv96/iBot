@@ -1,9 +1,9 @@
-import { combineReducers } from 'redux';
-import devices from "./devices";
+import {combineReducers} from 'redux';
+import {actuators, sensors} from "./devices";
 
 
 const iBotApp = combineReducers({
-  devices,
-})
+  sensors,actuators
+});
 
 export default iBotApp;

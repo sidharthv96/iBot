@@ -22,12 +22,12 @@ void setup()
     HTTPClient http;
     Serial.print("[HTTP] begin...\n");
     IPAddress ipa = WiFi.localIP();
-    int x = 0;
+    int x = 102;
     String ip = String(ipa[0]) + "." + String(ipa[1]) + "." + String(ipa[2]) + ".";
     while (1)
     {
-        host = ip + String(x++);
-        http.begin("http://" + host + ":8000/test/"); //HTTP
+        host = "http://" + ip + String(x++) + ":80";
+        http.begin(host + "/test/"); //HTTP
         Serial.print("[HTTP] GET..." + host + "\n");
         int httpCode = http.GET();
         if (httpCode > 0)
@@ -36,8 +36,7 @@ void setup()
             if (httpCode == HTTP_CODE_OK)
             {
                 String payload = http.getString();
-                Serial.println(payload);
-                host = "http://" + host + ":8000";
+                Serial.println(payload);                
                 http.end();
                 break;
             }
@@ -98,6 +97,7 @@ void connectWifi()
     wifiMulti.addAP("Redmi 3S", "kannan123"); // add Wi-Fi networks you want to connect to
     wifiMulti.addAP("Shield", "12347777");
     wifiMulti.addAP("Hacker", "virusalert");
+    wifiMulti.addAP("Tenda_479FF0", "vadanasurada");
     wifiMulti.addAP("iBot", "iRobot969");
 
     Serial.print("Connecting.");

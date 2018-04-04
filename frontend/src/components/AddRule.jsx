@@ -1,8 +1,19 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {devices} from "../actions";
-import {CardColumns, Collapse, Container, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from 'reactstrap';
-import {Joystick, Temperature, Ultrasonic} from "./Sensors";
+import {sensors} from "../actions";
+import {
+    Collapse,
+    Container,
+    FormGroup,
+    Input,
+    Label,
+    Nav,
+    Navbar,
+    NavbarBrand,
+    NavbarToggler,
+    NavItem,
+    NavLink
+} from 'reactstrap';
 
 
 class AddRule extends Component {
@@ -32,14 +43,24 @@ class AddRule extends Component {
 
         this.toggle = this.toggle.bind(this);
         this.state = {
-            text: "",
+            sensors: [],
+            actuators: [],
+            sensor: "",
+            sensor_events: [],
+            sensor_event: "",
+            sensor_event_visible: false,
+            sensor_value: "",
+            actuator: "",
+            actuator_actions: [],
+            actuator_action: "",
+            actuator_value: "",
             isOpen: false
         };
     }
 
     componentDidMount() {
-        // this.props.fetchSensors();
-        setInterval(this.props.fetchSensors.bind(this), 1000);
+        this.props.fetchSensors();
+        // setInterval(this.props.fetchSensors.bind(this), 1000);
         // setInterval(this.props.fetchSensors(),1000);
     }
 
@@ -49,20 +70,11 @@ class AddRule extends Component {
         });
     }
 
-    createSensor(sensor, id){
-        // console.log(id);
-        switch(sensor.name){
-            case 'joystick':
-                return <Joystick device={sensor}/>;
-            case 'ultrasonic':
-                return <Ultrasonic device={sensor}/>;
-            case 'temperature':
-                return <Temperature device={sensor}/>;
-            default:
-                return;
 
-        }
-
+    sensorSelected(event){
+        this.setState({sensor: event.target.value});
+        console.log(event.target);
+        this.props.fetchSensorEvents(event.target.value);
     }
 
     render() {
@@ -73,6 +85,9 @@ class AddRule extends Component {
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
+                            <NavItem>
+                                <NavLink href="/">Devices</NavLink>
+                            </NavItem>
                             <NavItem>
                                 <NavLink href="http://localhost:8080/">Block Editor</NavLink>
                             </NavItem>
@@ -86,26 +101,40 @@ class AddRule extends Component {
 
                     {/*<h3>Add new device</h3>*/}
                     {/*<form onSubmit={this.submitDevice}>*/}
-                        {/*<InputGroup>*/}
-                            {/*<Input*/}
-                                {/*value={this.state.text}*/}
-                                {/*placeholder="Enter device here..."*/}
-                                {/*onChange={(e) => this.setState({text: e.target.value})}*/}
-                                {/*required />*/}
-                            {/*<InputGroupAddon addonType="append"><Button type="submit" color="primary">Save Device</Button></InputGroupAddon>*/}
+                    {/*<InputGroup>*/}
+                    {/*<Input*/}
+                    {/*value={this.state.text}*/}
+                    {/*placeholder="Enter device here..."*/}
+                    {/*onChange={(e) => this.setState({text: e.target.value})}*/}
+                    {/*required />*/}
+                    {/*<InputGroupAddon addonType="append"><Button type="submit" color="primary">Save Device</Button></InputGroupAddon>*/}
 
-                        {/*</InputGroup>*/}
+                    {/*</InputGroup>*/}
 
 
                     {/*</form>*/}
                     <h1>Add Rule</h1>
-                    <CardColumns>
-                        {this.props.devices.map((device, id) => (this.createSensor(device,id)))}
-                        {this.props.devices.map((device, id) => (this.createSensor(device,id)))}
-                    </CardColumns>
+                    <FormGroup>
+                        <Label for="sensorSelect">Select</Label>
+                        <Input type="select" name="sensor" id="sensorSelect" onChange={(e) => this.sensorSelected(e)} value={this.state.sensor}>
+                            <option value="">Select Sensor</option>
+                            {this.props.sensors.map((sensor,id) => {
+                                return (<option key={sensor.pk} value={sensor.pk}>{sensor.name}</option>);
+                            })}
+                        </Input>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="sensorEventSelect">Select</Label>
+                        <Input type="select" name="sensor_event" id="sensorEventSelect" onChange={(e) => this.setState({sensor_event: e.target.value})} value={this.state.sensor}>
+                            <option value="">Select Sensor Event</option>
+                            {this.props.sensor_events.map((sensor_event,id) => {
+                                return (<option key={sensor_event.pk} value={sensor_event.pk}>{sensor_event.name}</option>);
+                            })}
+                        </Input>
+                    </FormGroup>
                     {/*<table>*/}
-                        {/*<tbody>*/}
-                        {/*</tbody>*/}
+                    {/*<tbody>*/}
+                    {/*</tbody>*/}
                     {/*</table>*/}
                     {/*<Button onClick={this.resetForm}>Reset</Button>*/}
 
@@ -119,22 +148,28 @@ class AddRule extends Component {
 const mapStateToProps = state => {
     return {
         devices: state.devices,
+        sensors: state.sensors,
+        sensor_events: state.sensor_events,
+        actuators: state.actuators
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         fetchSensors: () => {
-            dispatch(devices.fetchSensors());
+            dispatch(sensors.fetchSensors());
+        },
+        fetchSensorEvents: (sensor) => {
+            dispatch(sensors.fetchSensorEvents(sensor));
         },
         addDevice: (text) => {
-            dispatch(devices.addDevice(text));
+            dispatch(sensors.addDevice(text));
         },
         updateDevice: (id, text) => {
-            dispatch(devices.addDevice(id, text));
+            dispatch(sensors.addDevice(id, text));
         },
         deleteDevice: (id) => {
-            dispatch(devices.deleteDevice(id));
+            dispatch(sensors.deleteDevice(id));
         },
     }
 };

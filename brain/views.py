@@ -31,11 +31,12 @@ def refresh(request):
     global last_check
     dev = Device.objects.get(code=request.GET.get("code"))
     dev.last_seen = timezone.now()
+    dev.state = True;
     dev.save()
 
     if timezone.now() > last_check + timedelta(seconds=3):
         print("Ch3ck3d")
-        devs = Device.objects.filter(last_seen__lt=timezone.now()-timedelta(seconds=3))
+        devs = Device.objects.filter(last_seen__lt=timezone.now() - timedelta(seconds=3))
         for d in devs:
             d.state = False
             d.save()
@@ -50,7 +51,7 @@ def state(request):
 
 
 def toggle(val):
-    if val == "True" or int(val) > 0:
+    if val.lower() == "true" or val.lower() == "on" or int(val) > 0:
         return 0
     return 1
 
