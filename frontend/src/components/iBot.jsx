@@ -71,7 +71,7 @@ class iBot extends Component {
         switch(sensor.name){
             case 'led':
                 return <Led device={sensor}/>;
-            case 'motor':
+            case 'Motor':
                 return <Robot device={sensor}/>;
             case 'buzzer':
                 return <Buzzer device={sensor}/>;
