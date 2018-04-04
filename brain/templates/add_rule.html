@@ -159,7 +159,7 @@
 
     $("#sensor_value_field").hide();
     $("#sensor").change(function() {
-        $("#sensor_event").load("/options?type=sensor&pk=" + $("#sensor").val());
+        $("#sensor_event").load("/options/?type=sensor&pk=" + $("#sensor").val());
         variableSensor();
     });
     $("#sensor_event").change(function () {
@@ -178,7 +178,7 @@
 
     $("#actuator_value_field").hide();
     $("#actuator").change(function() {
-        $("#actuator_action").load("/options?type=actuator&pk=" + $("#actuator").val());
+        $("#actuator_action").load("/options/?type=actuator&pk=" + $("#actuator").val());
         variableActuator();
     });
     $("#actuator_action").change(function () {
