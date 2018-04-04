@@ -13,7 +13,7 @@ class Device(models.Model):
     state = models.BooleanField(default=False)
     version = models.IntegerField(default=0)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name + " " + self.code
 
 
@@ -22,7 +22,7 @@ class Parameter(models.Model):
     value = models.CharField(max_length=200, default="")
     variable = models.BooleanField(default=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -30,12 +30,12 @@ class Sensor(Device):
     value = models.FloatField(default=0, null=True)
     events = models.ManyToManyField(Parameter)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name + " " + self.code
 
 
 class Actuator(Device):
     actions = models.ManyToManyField(Parameter)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name + " " + self.code
