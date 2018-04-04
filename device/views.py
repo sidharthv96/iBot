@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import json
+
 from django.http.response import HttpResponse
-from django.shortcuts import render
-from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
 from device.models import *
-import json
 
 
 def test(request):
@@ -19,7 +18,7 @@ def register(request):
     if request.method == "GET":
         return HttpResponse("Register Device")
     # print(request.body)
-    d = json.loads(request.body)
+    d = json.loads(request.body.decode('utf-8'))
     print(d)
     if d['mode'] == "actuator":
         act, created = Actuator.objects.get_or_create(code=d['code'])
